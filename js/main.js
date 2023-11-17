@@ -2,17 +2,14 @@
 
 // FUNZIONI
 // cambio immagine - scorrere le classi tra gli elementi
-function cambioImmagine(indice) {
-  const domItems = document.querySelectorAll(".item");
-  const domThumbnails = document.querySelectorAll(".layer");
-
+function cambioImmagine() {
   domItems[contImmagine].classList.remove("active");
   domThumbnails[contImmagine].classList.remove("selected");
 
-  domItems[indice].classList.add("active");
-  domThumbnails[indice].classList.add("selected");
+  domItems[nuovaPosizione].classList.add("active");
+  domThumbnails[nuovaPosizione].classList.add("selected");
 
-  contImmagine = indice;
+  contImmagine = nuovaPosizione;
 }
 
 // PROGRAMMA
@@ -107,6 +104,9 @@ miniature.append(basso);
 // Nuovo indice
 let nuovaPosizione;
 
+const domItems = document.querySelectorAll(".item");
+const domThumbnails = document.querySelectorAll(".layer");
+
 // evento per cambiare le immagini
 // scorrere in dietro
 alto.addEventListener("click", function () {
@@ -118,7 +118,7 @@ alto.addEventListener("click", function () {
     // La nuova posizione è l'immagine precedente
     nuovaPosizione = contImmagine - 1;
   }
-  cambioImmagine(nuovaPosizione);
+  cambioImmagine();
 });
 
 // scorrere in avanti
@@ -131,5 +131,7 @@ basso.addEventListener("click", function () {
     // La nuova posizione è l'immagine successiva
     nuovaPosizione = contImmagine + 1;
   }
-  cambioImmagine(nuovaPosizione);
+  cambioImmagine();
 });
+
+// setInterval(cambioImmagine, 3000);
