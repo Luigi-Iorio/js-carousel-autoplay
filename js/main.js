@@ -1,28 +1,18 @@
 "use strict";
 
-// FUNZIONE
-function inDietro(elemento, classe, contatore) {
-  elemento[contatore].classList.remove(classe);
-  contatore--;
-  elemento[contatore].classList.add(classe);
-}
+// FUNZIONI
+// cambio immagine - scorrere le classi tra gli elementi
+function cambioImmagine(indice) {
+  const domItems = document.querySelectorAll(".item");
+  const domThumbnails = document.querySelectorAll(".layer");
 
-function inDietroRicomincia(elemento, classe, contatore) {
-  elemento[contatore].classList.remove(classe);
-  contatore = elemento.length - 1;
-  elemento[contatore].classList.add(classe);
-}
+  domItems[contImmagine].classList.remove("active");
+  domThumbnails[contImmagine].classList.remove("selected");
 
-function inAvanti(elemento, classe, contatore) {
-  elemento[contatore].classList.remove(classe);
-  contatore++;
-  elemento[contatore].classList.add(classe);
-}
+  domItems[indice].classList.add("active");
+  domThumbnails[indice].classList.add("selected");
 
-function inAvantiRicomincia(elemento, classe, contatore) {
-  elemento[contatore].classList.remove(classe);
-  contatore = 0;
-  elemento[contatore].classList.add(classe);
+  contImmagine = indice;
 }
 
 // PROGRAMMA
@@ -40,8 +30,6 @@ container.append(items);
 const immagini = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
 // contatore immagini
 let contImmagine = 0;
-// contatore miniature
-let contMiniature = 0;
 
 // creazione thumbnails nel dom
 const miniature = document.createElement("div");
@@ -52,17 +40,12 @@ container.append(miniature);
 
 // creazione elementi item e immagine
 for (let i = 0; i < immagini.length; i++) {
-  // creazione elemento idem
+  // creazione elemento item
   const item = document.createElement("div");
   // aggiungo classe item
   item.classList.add("item");
   // appendo item al contenitore items
   items.append(item);
-
-  // assegnazione variabile active
-  if (contImmagine === i) {
-    item.classList.add("active");
-  }
 
   // creazione thumbnail
   const miniatura = document.createElement("div");
@@ -78,8 +61,9 @@ for (let i = 0; i < immagini.length; i++) {
   // inserito in miniatura
   miniatura.append(layer);
 
-  // assegnazione variabile active per miniature
-  if (contMiniature === i) {
+  // assegnazione variabile active e selected
+  if (contImmagine === i) {
+    item.classList.add("active");
     layer.classList.add("selected");
   }
 
@@ -99,9 +83,7 @@ for (let i = 0; i < immagini.length; i++) {
 
   // click miniature
   miniatura.addEventListener("click", function () {
-    if (layer === document.querySelector(".selected")) {
-      contImmagine[i] == contMiniature[i];
-    } else {
+    if (layer !== document.querySelector(".selected")) {
       document.querySelector(".selected").classList.remove("selected");
       layer.classList.add("selected");
     }
@@ -122,46 +104,32 @@ basso.classList.add("next");
 // inserimento in items
 miniature.append(basso);
 
-// domitems - per selezzionare tutti gli elementi item nel dom
-const domItems = document.querySelectorAll(".item");
-console.log(domItems);
-
-// domThumbnails - per selezionare tutti gli elementi thumbnail nel dom
-const domThumbnails = document.querySelectorAll(".layer");
+// Nuovo indice
+let nuovaPosizione;
 
 // evento per cambiare le immagini
 // scorrere in dietro
 alto.addEventListener("click", function () {
-  if (contImmagine > 0 && contMiniature > 0) {
-    inDietro(domItems, "active", contImmagine);
-
-    // cambiare classi domThumbnail
-    inDietro(domThumbnails, "selected", contMiniature);
-  } else if (contImmagine === 0 && contMiniature === 0) {
-    inDietroRicomincia(domItems, "active", contImmagine);
-
-    // cambiare classi domThumbnail
-    inDietroRicomincia(domThumbnails, "selected", contMiniature);
+  // se il contatore è inferiore a 0
+  if (contImmagine - 1 < 0) {
+    // la nuova posizione è l'ultima immagine dell'array
+    nuovaPosizione = immagini.length - 1;
+  } else {
+    // La nuova posizione è l'immagine precedente
+    nuovaPosizione = contImmagine - 1;
   }
+  cambioImmagine(nuovaPosizione);
 });
 
 // scorrere in avanti
 basso.addEventListener("click", function () {
-  if (
-    contImmagine < domItems.length - 1 &&
-    contMiniature < domThumbnails.length - 1
-  ) {
-    inAvanti(domItems, "active", contImmagine);
-
-    // cambiare classi domThumbnail
-    inAvanti(domThumbnails, "selected", contMiniature);
-  } else if (
-    contImmagine === domItems.length - 1 &&
-    contMiniature === domThumbnails.length - 1
-  ) {
-    inAvantiRicomincia(domItems, "active", contImmagine);
-
-    // cambiare classi domThumbnail
-    inAvantiRicomincia(domThumbnails, "selected", contMiniature);
+  // se il contatore è maggiore/uguale alla lunghezza dell'array
+  if (contImmagine + 1 >= immagini.length) {
+    // la nuova posizione è 0
+    nuovaPosizione = 0;
+  } else {
+    // La nuova posizione è l'immagine successiva
+    nuovaPosizione = contImmagine + 1;
   }
+  cambioImmagine(nuovaPosizione);
 });
