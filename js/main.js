@@ -4,7 +4,7 @@
 function inDietro(elemento, classe, contatore) {
   elemento[contatore].classList.remove(classe);
   contatore--;
-  elemento.classList.add(classe);
+  elemento[contatore].classList.add(classe);
 }
 
 function inDietroRicomincia(elemento, classe, contatore) {
