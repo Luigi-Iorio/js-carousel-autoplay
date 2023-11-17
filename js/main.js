@@ -1,5 +1,32 @@
 "use strict";
 
+// FUNZIONE
+function inDietro(elemento, classe, contatore) {
+  elemento[contatore].classList.remove(classe);
+  contatore--;
+  elemento.classList.add(classe);
+}
+
+function inDietroRicomincia(elemento, classe, contatore) {
+  elemento[contatore].classList.remove(classe);
+  contatore = elemento.length - 1;
+  elemento[contatore].classList.add(classe);
+}
+
+function inAvanti(elemento, classe, contatore) {
+  elemento[contatore].classList.remove(classe);
+  contatore++;
+  elemento[contatore].classList.add(classe);
+}
+
+function inAvantiRicomincia(elemento, classe, contatore) {
+  elemento[contatore].classList.remove(classe);
+  contatore = 0;
+  elemento[contatore].classList.add(classe);
+}
+
+// PROGRAMMA
+
 // assegnazione / dichiarazione variabile per il container
 const container = document.querySelector(".container");
 // creazione elemento items
@@ -106,23 +133,15 @@ const domThumbnails = document.querySelectorAll(".layer");
 // scorrere in dietro
 alto.addEventListener("click", function () {
   if (contImmagine > 0 && contMiniature > 0) {
-    domItems[contImmagine].classList.remove("active");
-    contImmagine--;
-    domItems[contImmagine].classList.add("active");
+    inDietro(domItems, "active", contImmagine);
 
     // cambiare classi domThumbnail
-    domThumbnails[contMiniature].classList.remove("selected");
-    contMiniature--;
-    domThumbnails[contMiniature].classList.add("selected");
+    inDietro(domThumbnails, "selected", contMiniature);
   } else if (contImmagine === 0 && contMiniature === 0) {
-    domItems[contImmagine].classList.remove("active");
-    contImmagine = domItems.length - 1;
-    domItems[contImmagine].classList.add("active");
+    inDietroRicomincia(domItems, "active", contImmagine);
 
     // cambiare classi domThumbnail
-    domThumbnails[contMiniature].classList.remove("selected");
-    contMiniature = domThumbnails.length - 1;
-    domThumbnails[contMiniature].classList.add("selected");
+    inDietroRicomincia(domThumbnails, "selected", contMiniature);
   }
 });
 
@@ -132,25 +151,17 @@ basso.addEventListener("click", function () {
     contImmagine < domItems.length - 1 &&
     contMiniature < domThumbnails.length - 1
   ) {
-    domItems[contImmagine].classList.remove("active");
-    contImmagine++;
-    domItems[contImmagine].classList.add("active");
+    inAvanti(domItems, "active", contImmagine);
 
     // cambiare classi domThumbnail
-    domThumbnails[contMiniature].classList.remove("selected");
-    contMiniature++;
-    domThumbnails[contMiniature].classList.add("selected");
+    inAvanti(domThumbnails, "selected", contMiniature);
   } else if (
     contImmagine === domItems.length - 1 &&
     contMiniature === domThumbnails.length - 1
   ) {
-    domItems[contImmagine].classList.remove("active");
-    contImmagine = 0;
-    domItems[contImmagine].classList.add("active");
+    inAvantiRicomincia(domItems, "active", contImmagine);
 
     // cambiare classi domThumbnail
-    domThumbnails[contMiniature].classList.remove("selected");
-    contMiniature = 0;
-    domThumbnails[contMiniature].classList.add("selected");
+    inAvantiRicomincia(domThumbnails, "selected", contMiniature);
   }
 });
