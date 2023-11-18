@@ -141,8 +141,7 @@ basso.addEventListener("click", function () {
   play();
 });
 
-// cambio immagine ogni 3 secondi
-
+// bottoni play stop
 const buttonPlay = document.querySelector("button:first-child");
 const buttonStop = document.querySelector("button:last-child");
 
