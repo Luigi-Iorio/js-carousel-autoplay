@@ -142,4 +142,19 @@ basso.addEventListener("click", function () {
 });
 
 // cambio immagine ogni 3 secondi
-const intervallo = setInterval(play, 3000);
+
+const buttonPlay = document.querySelector("button:first-child");
+const buttonStop = document.querySelector("button:last-child");
+
+// variabile globale
+let intervallo;
+
+// al click del bottone play viene eseguita la timing function
+buttonPlay.addEventListener("click", function () {
+  intervallo = setInterval(play, 3000);
+});
+
+// al click del bottone stop viene fermata la timing function
+buttonStop.addEventListener("click", function () {
+  clearInterval(intervallo);
+});
