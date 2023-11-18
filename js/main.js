@@ -27,12 +27,15 @@ function play() {
 
 // assegnazione / dichiarazione variabile per il container
 const container = document.querySelector(".container");
+const row = document.createElement("div");
+row.classList.add("row");
+container.prepend(row);
 // creazione elemento items
 const items = document.createElement("div");
 // aggiungo classe items
 items.classList.add("items");
 // appendo al container
-container.append(items);
+row.append(items);
 
 // creazione array di immagini
 const immagini = ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"];
@@ -44,7 +47,7 @@ const miniature = document.createElement("div");
 // aggiungo la classe thumbnails
 miniature.classList.add("thumbnails");
 // aggiungo nel dom
-container.append(miniature);
+row.append(miniature);
 
 // creazione elementi item e immagine
 for (let i = 0; i < immagini.length; i++) {
