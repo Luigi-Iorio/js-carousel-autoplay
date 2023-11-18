@@ -12,6 +12,17 @@ function cambioImmagine() {
   contImmagine = nuovaPosizione;
 }
 
+function play() {
+  if (contImmagine + 1 >= immagini.length) {
+    // la nuova posizione è 0
+    nuovaPosizione = 0;
+  } else {
+    // La nuova posizione è l'immagine successiva
+    nuovaPosizione = contImmagine + 1;
+  }
+  cambioImmagine();
+}
+
 // PROGRAMMA
 
 // assegnazione / dichiarazione variabile per il container
@@ -102,7 +113,7 @@ basso.classList.add("next");
 miniature.append(basso);
 
 // Nuovo indice
-let nuovaPosizione;
+let nuovaPosizione = 0;
 
 const domItems = document.querySelectorAll(".item");
 const domThumbnails = document.querySelectorAll(".layer");
@@ -124,14 +135,8 @@ alto.addEventListener("click", function () {
 // scorrere in avanti
 basso.addEventListener("click", function () {
   // se il contatore è maggiore/uguale alla lunghezza dell'array
-  if (contImmagine + 1 >= immagini.length) {
-    // la nuova posizione è 0
-    nuovaPosizione = 0;
-  } else {
-    // La nuova posizione è l'immagine successiva
-    nuovaPosizione = contImmagine + 1;
-  }
-  cambioImmagine();
+  play();
 });
 
-// setInterval(cambioImmagine, 3000);
+// cambio immagine ogni 3 secondi
+const intervallo = setInterval(play, 3000);
