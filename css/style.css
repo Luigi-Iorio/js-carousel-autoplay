@@ -134,6 +134,8 @@ button {
   border-radius: 18px;
   padding: 10px 20px;
   font-weight: bold;
+  cursor: pointer;
+  transition: 0.5;
 }
 
 button:first-child {
@@ -141,7 +143,15 @@ button:first-child {
   color: black;
 }
 
+button:first-child:hover {
+  background-color: rgb(110, 219, 0);
+}
+
 button:last-child {
   background-color: orangered;
   color: white;
+}
+
+button:last-child:hover {
+  background-color: rgb(211, 56, 0);
 }
